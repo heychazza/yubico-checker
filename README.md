@@ -1,3 +1,5 @@
+![Example](https://github.com/heychazza/yubico-checker/blob/main/.github/example.png?raw=true)
+
 # Yubico Stock Checker
 Get notified when an item from the YubiKey you want comes available.
 
