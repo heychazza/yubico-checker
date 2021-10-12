@@ -29,7 +29,7 @@ function checkStock() {
     })
 }
 
-function notifyAvailability(name, img, msg) {
+function notifyAvailability(name, img, status, msg) {
     request({
         url: process.env.WEBHOOK_URL,
         method: 'POST',
@@ -39,7 +39,7 @@ function notifyAvailability(name, img, msg) {
         body: JSON.stringify({
             username: name,
             avatar_url: img,
-            content: msg + '\r\n' + `https://www.yubico.com/gb/product/${process.env.ITEM_ID}/`,
+            content: (status ? `<@${process.env.DISCORD_USER_ID}>, ` : '') + msg + '\r\n' + `https://www.yubico.com/gb/product/${process.env.ITEM_ID}/`,
         })
     })
 }
@@ -50,7 +50,7 @@ async function run() {
     let itemName = body.custom_attributes.meta_title;
     let itemImg = body.extension_attributes.media_absolute_url.image;
 
-    notifyAvailability(itemName, itemImg, status ? 'This item is now in stock.' : 'This item is still unavailable.');
+    notifyAvailability(itemName, itemImg, status, status ? 'this item is now in stock.' : 'this item is still unavailable.');
 }
 
 // Check every 5 minutes.
